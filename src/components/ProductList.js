@@ -1,14 +1,20 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const ProductList = () => {
     const [products, setProducts] = useState([]);
     const [url, setUrl] = useState("http://localhost:8000/products");
 
-    useEffect(() => {
-        fetch(url)
-        .then(response => response.json())
-        .then(data => setProducts(data));
+    const fetchProducts = useCallback(async () => {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log("data: " + data);
+        setProducts(data);
     }, [url]);
+    
+    useEffect(() => {
+        fetchProducts();
+        console.log("-");
+    }, [fetchProducts]);
 
   return (
     <section>
