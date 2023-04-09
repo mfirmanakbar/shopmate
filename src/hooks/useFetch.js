@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-export const useFetch = (url) => {
+export const useFetch = (url, _body) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const body = useRef(_body); // if there's object please use `_` at the object
 
     useEffect(() => {
         const controller = new AbortController()
@@ -19,6 +20,7 @@ export const useFetch = (url) => {
                 setLoading(false);
                 setData(result);
                 setError("");
+                console.log("-----")
             } catch(error){
                 setLoading(false);
                 setError(error.message);
