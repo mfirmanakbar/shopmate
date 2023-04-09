@@ -29,7 +29,7 @@ export const useFetch = (url, _body) => {
         fetchData();
 
         return () => controller.abort();
-    }, [url]);
+    }, [url, body]);
 
   return { data, loading, error }
 }
